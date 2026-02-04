@@ -30,7 +30,7 @@ public class UserService {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        user.setPassword(password); // Consider encoding if using security
+        user.setPassword(passwordEncoder.encode(password));
 
         return userRepository.save(user);
     }
@@ -39,7 +39,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setPassword(newPassword); // Ideally, hash the password
+            user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             return true;
         }
