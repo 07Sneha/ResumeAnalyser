@@ -2,6 +2,8 @@ package com.analyser.resumeanalyzer.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "resume_jd_pair")  
@@ -14,6 +16,8 @@ public class ResumeJDPair {
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
     private User user;
 
     @Column(name = "resume_file_name", nullable = false)

@@ -4,6 +4,7 @@ package com.analyser.resumeanalyzer.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +22,7 @@ public class User {
     private String email;
 
     @Column(name = "password", nullable = false)
+    //@com.fasterxml.jackson.annotation.JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "created_at", updatable = false)
@@ -28,6 +30,7 @@ public class User {
 
     // Optional: Bi-directional relationship if needed
     @OneToMany(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true)
+    @JsonBackReference
     private List<ResumeJDPair> resumeJDPairList;
 
     // Constructors
